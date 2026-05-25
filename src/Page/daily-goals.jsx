@@ -7,6 +7,7 @@ import WeeklyQuestions from "../sections/weeklyQuestions.jsx";
 import TabData from "../components/tabData.jsx";
 import DailyCheckin from "../sections/dailyCheckin.jsx";
 import scheduleDailyNotifications from "../utils/scheduledNotificatio.js";
+import { subscribeToPush } from "../utils/pushSubscriptions.js";
 
 
 
@@ -17,14 +18,15 @@ export default function HeroLearningDashboard() {
   } = useContext(HeroContext);
 
   useEffect(() => {
-  requestNotificationPermission();
-  
-
-  }, []);
+  requestNotificationPermission()
+  subscribeToPush()
+}, [])
 
   useEffect(() => {
   scheduleDailyNotifications();
 }, []);
+
+
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 px-4 py-6 sm:px-8 font-sans">
