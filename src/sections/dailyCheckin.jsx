@@ -43,18 +43,6 @@ export default function DailyCheckin() {
                               <p className="text-zinc-400 mt-1">Choose the day, tick your goals, and reset when needed.</p>
                               
 
-                                <button
-                                className="bg-stone-400 p-4"
-                                onClick={() =>
-                                  showNotification(
-                                    "Hero Dashboard",
-                                    "Time for React deep work"
-                                  )
-                                
-                                }
-                              >
-                                Test Notification
-                              </button>
                             </div>
                             <button onClick={resetDay} className="rounded-xl bg-zinc-800 hover:bg-zinc-700 p-3"><RotateCcw size={20} /></button>
                           </div>
