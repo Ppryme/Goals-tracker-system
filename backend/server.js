@@ -24,6 +24,7 @@ let subscriptions = []
 app.post('/subscribe', (req, res) => {
   const subscription = req.body
   subscriptions.push(subscription)
+  console.log('New subscription! Total:', subscriptions.length)
   res.status(201).json({ message: 'Subscribed!' })
 })
 
@@ -36,6 +37,7 @@ app.post('/send-notification', async (req, res) => {
   const results = await Promise.allSettled(
     subscriptions.map(sub => webpush.sendNotification(sub, payload))
   )
+   
 
   res.json({ message: 'Notifications sent', results })
 })
