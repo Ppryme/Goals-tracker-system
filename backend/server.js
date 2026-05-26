@@ -3,56 +3,72 @@ import webpush from 'web-push'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import cron from 'node-cron'
+import mongoose from 'mongoose'
 
 dotenv.config()
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.log('MongoDB error:', err))
+
+// Subscription model
+const Subscription = mongoose.model('Subscription', new mongoose.Schema({
+  endpoint: { type: String, unique: true },
+  keys: { p256dh: String, auth: String }
+}))
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Configure web-push with your VAPID keys
 webpush.setVapidDetails(
   process.env.VAPID_EMAIL,
   process.env.VAPID_PUBLIC_KEY,
   process.env.VAPID_PRIVATE_KEY
 )
 
-// Store subscriptions (in memory for now)
-let subscriptions = []
-
-// Frontend hits this to save their push subscription
-app.post('/subscribe', (req, res) => {
-  const subscription = req.body
-  subscriptions.push(subscription)
-  console.log('New subscription! Total:', subscriptions.length)
+// Save subscription — upsert so no duplicates
+app.post('/subscribe', async (req, res) => {
+  const { endpoint, keys } = req.body
+  await Subscription.findOneAndUpdate(
+    { endpoint },
+    { endpoint, keys },
+    { upsert: true, new: true }
+  )
+  console.log('Subscription saved!')
   res.status(201).json({ message: 'Subscribed!' })
 })
 
-// Hit this endpoint to send a push to all subscribers
+// Send to all saved subscriptions
 app.post('/send-notification', async (req, res) => {
   const { title, body } = req.body
-
+  const subscriptions = await Subscription.find()
   const payload = JSON.stringify({ title, body })
 
   const results = await Promise.allSettled(
-    subscriptions.map(sub => webpush.sendNotification(sub, payload))
+    subscriptions.map(sub => webpush.sendNotification({
+      endpoint: sub.endpoint,
+      keys: sub.keys
+    }, payload))
   )
-   
 
   res.json({ message: 'Notifications sent', results })
 })
 
-
-
-// Runs every day at 6:00 AM
+// 6am daily cron
 cron.schedule('0 6 * * *', async () => {
+  const subscriptions = await Subscription.find()
   const payload = JSON.stringify({
     title: 'Hero Dashboard',
     body: 'Good morning! Time to check in.'
   })
 
   await Promise.allSettled(
-    subscriptions.map(sub => webpush.sendNotification(sub, payload))
+    subscriptions.map(sub => webpush.sendNotification({
+      endpoint: sub.endpoint,
+      keys: sub.keys
+    }, payload))
   )
   console.log('Morning notifications sent!')
 })
