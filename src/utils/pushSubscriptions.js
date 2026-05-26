@@ -10,28 +10,28 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export async function subscribeToPush() {
-    console.log('VAPID KEY:', import.meta.env.VITE_VAPID_PUBLIC_KEY) // ← add this4e
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
     console.warn('Push notifications not supported')
     return
   }
 
   const registration = await navigator.serviceWorker.ready
+  let subscription = await registration.pushManager.getSubscription()
 
-  const existing = await registration.pushManager.getSubscription()
-  if (existing) return existing
+  if (!subscription) {
+    subscription = await registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(import.meta.env.VITE_VAPID_PUBLIC_KEY)
+    })
+  }
 
-  const subscription = await registration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(import.meta.env.VITE_VAPID_PUBLIC_KEY)  // ← converted here
-  })
-
+  // Always send to backend regardless
   await fetch(`${import.meta.env.VITE_BACKEND_URL}/subscribe`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(subscription)
   })
 
-  
+  console.log('Push subscription successful!')
   return subscription
 }
