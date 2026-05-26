@@ -28,6 +28,8 @@ webpush.setVapidDetails(
   process.env.VAPID_PRIVATE_KEY
 )
 
+app.get('/health', (req, res) => res.json({ status: 'ok' }))
+
 // Save subscription — upsert so no duplicates
 app.post('/subscribe', async (req, res) => {
   const { endpoint, keys } = req.body
