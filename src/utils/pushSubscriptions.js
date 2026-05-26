@@ -32,6 +32,6 @@ export async function subscribeToPush() {
     body: JSON.stringify(subscription)
   })
 
-  console.log('Push subscription successful!')
+ 
   return subscription
 }
