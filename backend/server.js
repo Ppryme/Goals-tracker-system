@@ -2,6 +2,7 @@ import express from 'express'
 import webpush from 'web-push'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import cron from 'node-cron'
 
 dotenv.config()
 
@@ -37,6 +38,21 @@ app.post('/send-notification', async (req, res) => {
   )
 
   res.json({ message: 'Notifications sent', results })
+})
+
+
+
+// Runs every day at 6:00 AM
+cron.schedule('0 6 * * *', async () => {
+  const payload = JSON.stringify({
+    title: 'Hero Dashboard',
+    body: 'Good morning! Time to check in.'
+  })
+
+  await Promise.allSettled(
+    subscriptions.map(sub => webpush.sendNotification(sub, payload))
+  )
+  console.log('Morning notifications sent!')
 })
 
 app.listen(3000, () => console.log('Server running on port 3000'))
