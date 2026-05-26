@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { HeroContext } from "../context/dashboardContext.jsx";
-import { showNotification } from "../utils/notification.js";
+
 import { habitChecks} from "../data/dashboard-data.js"
 import {motion} from "framer-motion"
 import DayTab from "../components/dayTab.jsx";
