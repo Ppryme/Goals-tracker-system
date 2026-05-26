@@ -10,6 +10,7 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export async function subscribeToPush() {
+    console.log('VAPID KEY:', import.meta.env.VITE_VAPID_PUBLIC_KEY) // ← add this4e
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
     console.warn('Push notifications not supported')
     return
