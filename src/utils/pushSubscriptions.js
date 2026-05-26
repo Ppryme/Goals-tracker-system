@@ -15,6 +15,13 @@ export async function subscribeToPush() {
     return
   }
 
+  // Wake up Render first
+  try {
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/health`)
+  } catch (e) {
+    console.log('Backend waking up...')
+  }
+
   const registration = await navigator.serviceWorker.ready
   let subscription = await registration.pushManager.getSubscription()
 
