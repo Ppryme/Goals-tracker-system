@@ -62,7 +62,7 @@ app.post('/send-notification', async (req, res) => {
 cron.schedule('0 6 * * *', async () => {
   const subscriptions = await Subscription.find()
   const payload = JSON.stringify({
-    title: 'Hero Dashboard',
+    title: 'Embark on your goals for daily excellence',
     body: 'Good morning! Time to check in.'
   })
 
