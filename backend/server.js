@@ -58,12 +58,12 @@ app.post('/send-notification', async (req, res) => {
   res.json({ message: 'Notifications sent', results })
 })
 
-// 6am daily cron
-cron.schedule('0 6 * * *', async () => {
+// 1:29pm daily cron
+cron.schedule('29 13 * * *', async () => {
   const subscriptions = await Subscription.find()
   const payload = JSON.stringify({
     title: 'Embark on your goals for daily excellence',
-    body: 'Good morning! Time to check in.'
+    body: 'Good afternoon! Time to check in.'
   })
 
   await Promise.allSettled(
