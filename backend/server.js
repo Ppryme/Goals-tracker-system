@@ -59,7 +59,7 @@ app.post('/send-notification', async (req, res) => {
 })
 
 // 2:13pm daily cron
-cron.schedule('13 14 * * *', async () => {
+cron.schedule('16 14 * * *', async () => {
   const subscriptions = await Subscription.find()
   const payload = JSON.stringify({
     title: 'Embark on your goals for daily excellence',
