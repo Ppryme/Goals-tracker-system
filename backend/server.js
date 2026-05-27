@@ -72,7 +72,7 @@ cron.schedule('36 13 * * *', async () => {
       keys: sub.keys
     }, payload))
   )
-  console.log('Morning notifications sent!')
+  console.log('afternoon notifications sent!')
 })
 
 app.listen(3000, () => console.log('Server running on port 3000'))
