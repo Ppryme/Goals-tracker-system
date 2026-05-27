@@ -11,6 +11,9 @@ self.addEventListener('push', (event) => {
     body: data.body || "Time to check in!",
     icon: '/icon-192.png',
     badge: '/icon-192.png',
+    tag: 'hero-dashboard',           // ← add this (groups notifications)
+    renotify: true,                   // ← add this (always shows even if same tag)
+    requireInteraction: false,        // ← add this
   }
 
   event.waitUntil(
