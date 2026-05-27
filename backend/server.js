@@ -58,12 +58,12 @@ app.post('/send-notification', async (req, res) => {
   res.json({ message: 'Notifications sent', results })
 })
 
-// 2:13pm daily cron
-cron.schedule('16 14 * * *', async () => {
+// 6am daily cron
+cron.schedule('0 6 * * *', async () => {
   const subscriptions = await Subscription.find()
   const payload = JSON.stringify({
     title: 'Embark on your goals for daily excellence',
-    body: 'Good afternoon! Time to check in.'
+    body: 'Good morning! Time to check in.'
   })
 
   await Promise.allSettled(
@@ -72,7 +72,7 @@ cron.schedule('16 14 * * *', async () => {
       keys: sub.keys
     }, payload))
   )
-  console.log('afternoon notifications sent!')
+  console.log('morning notifications sent!')
 })
 
 app.listen(3000, () => console.log('Server running on port 3000'))
