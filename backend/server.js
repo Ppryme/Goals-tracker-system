@@ -52,7 +52,9 @@ app.post('/send-notification', async (req, res) => {
     subscriptions.map(sub => webpush.sendNotification({
       endpoint: sub.endpoint,
       keys: sub.keys
-    }, payload))
+    }, payload, {
+      urgency: 'high'  // FCM to deliver immediately
+    }))
   )
 
   res.json({ message: 'Notifications sent', results })
@@ -70,7 +72,11 @@ cron.schedule('0 6 * * *', async () => {
     subscriptions.map(sub => webpush.sendNotification({
       endpoint: sub.endpoint,
       keys: sub.keys
-    }, payload))
+    }, payload,
+    {
+      urgency: 'high'  // FCM to deliver immediately
+    }))
+
   )
   console.log('morning notifications sent!')
 })
