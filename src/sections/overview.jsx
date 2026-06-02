@@ -7,7 +7,7 @@ export default function Overview () {
             {heroCards.map((card) => {
               const Icon = card.icon;
               return (
-                <div key={card.hero} className="rounded-3xl bg-zinc-900 border border-zinc-800 p-6 shadow-xl">
+                <div key={card.hero} className="card p-6 shadow-xl">
                   <div className="flex items-center gap-4">
                     <div className={`h-14 w-14 rounded-full ${card.bg} ${card.text} flex items-center justify-center font-bold`}>
                       {card.initials}

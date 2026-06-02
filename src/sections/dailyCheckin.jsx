@@ -36,7 +36,7 @@ export default function DailyCheckin() {
 
       return (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-8">
-                        <div className="rounded-3xl bg-zinc-900 border border-zinc-800 p-5 mb-5">
+                        <div className="card p-5 mb-5">
                           <div className="flex items-start justify-between gap-4">
                             <div>
                               <h2 className="text-2xl font-bold flex items-center gap-2"><CalendarDays /> {selectedDay} check-in</h2>
@@ -60,7 +60,7 @@ export default function DailyCheckin() {
                               
                         <div className="space-y-5">
                           {Object.entries(groupedGoals).map(([group, goals]) => (
-                            <div key={group} className="rounded-3xl bg-zinc-900 border border-zinc-800 p-5">
+                            <div key={group} className="card p-5">
                               <h3 className="text-lg font-bold mb-3">{group}</h3>
                               <div className="space-y-3">
                                 {goals.map((goal) => {
@@ -83,7 +83,7 @@ export default function DailyCheckin() {
                             </div>
                           ))}
             
-                          <div className="rounded-3xl bg-zinc-900 border border-zinc-800 p-5">
+                          <div className="card p-5">
                             <h3 className="text-lg font-bold mb-3 flex items-center gap-2"><ShieldCheck size={20} /> Habits to stop</h3>
                             <div className="space-y-3">
                               {habitChecks.map((habit, index) => {
