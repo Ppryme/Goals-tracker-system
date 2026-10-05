@@ -153,8 +153,8 @@ export const weeklyQuestions = [
 ];
 
 export const decisionLens = [
-  ["Standard", "Does this push me toward excellence or let me get comfortable?"],
-  ["Vision", "Does this help my long-term goal of becoming better in football, React, faith, and life?"],
-  ["Curiosity", "Will this expand my mind or keep me in the same loop?"],
-  ["Edge", "Am I avoiding this because it is wrong — or because it is hard?"],
+  ["Standard", "Does this push me toward excellence or let me get comfortable?", "bg-amber-300"],
+  ["Vision", "Does this help my long-term goal of becoming better in football, React, faith, and life?", "bg-sky-300"],
+  ["Curiosity", "Will this expand my mind or keep me in the same loop?", "bg-emerald-300"],
+  ["Edge", "Am I avoiding this because it is wrong — or because it is hard?", "bg-rose-300"],
 ];

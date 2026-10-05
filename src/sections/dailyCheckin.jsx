@@ -71,7 +71,7 @@ export default function DailyCheckin() {
                                       <div>
                                         <div className="flex flex-wrap items-center gap-2 mb-1">
                                           <span className="text-xs rounded-full bg-zinc-800 text-zinc-300 px-2 py-1">{goal.time}</span>
-                                          <span className="text-xs rounded-full bg-white text-zinc-950 px-2 py-1">{goal.hero}</span>
+                                          <span className="text-xs rounded-full bg-white text-dark px-2 py-1">{goal.hero}</span>
                                         </div>
                                         
                                         <p className={`font-semibold ${isDone ? "line-through text-zinc-500" : "text-zinc-100"}`}>{goal.item}</p>

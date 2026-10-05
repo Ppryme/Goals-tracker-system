@@ -7,10 +7,11 @@
 @theme {
   --color-primary: #18181b;      /* zinc-900 */
   --color-secondary: #27272a;    /* zinc-800 */
-  --color-surface: #09090b;      /* zinc-950 */
+  --color-dark: #09090b;      /* zinc-950 */
 
   --color-text-main: #f4f4f5;
   --color-text-muted: #a1a1aa;
+
 
   --color-discipline: #fef3c7;
   --color-discipline-text: #92400e;

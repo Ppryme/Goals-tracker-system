@@ -6,9 +6,9 @@ export default function DecisionLense() {
                 <p className="text-zinc-300 text-lg mb-5">Facing a big decision? Run it through each hero’s lens.</p>
                 <div className="card p-6 space-y-5">
                   <h2 className="text-2xl font-bold uppercase tracking-wide text-zinc-400">The Four-Lens Test</h2>
-                  {decisionLens.map(([label, question]) => (
+                  {decisionLens.map(([label, question, style]) => (
                     <div key={label} className="grid sm:grid-cols-[140px_1fr] gap-3 items-start">
-                      <span className="rounded-full bg-white text-zinc-950 px-3 py-1 font-bold text-sm w-fit">{label}</span>
+                      <span className={`rounded-full ${style} text-zinc-950 px-3 py-1 font-bold text-sm w-fit`}>{label}</span>
                       <p className="text-xl font-semibold  ">{question}</p>
                     </div>
                   ))}
